@@ -33,6 +33,7 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "TahsilatKisi.findByAd", query = "SELECT t FROM TahsilatKisi t WHERE t.ad = :ad"),
     @NamedQuery(name = "TahsilatKisi.findBySoyad", query = "SELECT t FROM TahsilatKisi t WHERE t.soyad = :soyad"),
     @NamedQuery(name = "TahsilatKisi.findByKullaniciAd", query = "SELECT t FROM TahsilatKisi t WHERE t.kullaniciAd = :kullaniciAd"),
+    @NamedQuery(name = "TahsilatKisi.giriseYetkilimi", query = "SELECT t FROM TahsilatKisi t WHERE t.kullaniciAd = :kullaniciAd and t.sifre = :sifre"),
     @NamedQuery(name = "TahsilatKisi.findBySifre", query = "SELECT t FROM TahsilatKisi t WHERE t.sifre = :sifre"),
     @NamedQuery(name = "TahsilatKisi.findByRol", query = "SELECT t FROM TahsilatKisi t WHERE t.rol = :rol")})
 public class TahsilatKisi implements Serializable {

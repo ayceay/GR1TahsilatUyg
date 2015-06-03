@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./mainTemplate.xhtml">
+
+            <ui:define name="content">
+                <h:form id="frmGiris">
+                    <p:growl id="msgDetayGrowl" showDetail="true" sticky="true"/>
+                    
+                    <p:messages showDetail="true"/>
+                    <p:panelGrid columns="3">
+                        
+                        <p:outputLabel value="Kullanıcı Ad : " />
+                        <p:inputText label="Kullanıcı Ad" value="#{tahsilatKisiBean.kisi.kullaniciAd}"
+                                     required="true" id="inputKullaniciAd">
+                          <p:ajax event="keyup" update="adMsg"/>
+                        </p:inputText>
+                                     
+                        <p:message id="adMsg" for="inputKullaniciAd"/>
+                        
+                        <p:outputLabel value="Şifre : " />
+                        <p:password label="Şifre" value="#{tahsilatKisiBean.kisi.sifre}"
+                                    required="true" id="inputSifre">
+                        <p:ajax event="keyup" update="sifreMsg"/>
+                                <f:validateLength minimum="4"/>
+                        </p:password>
+                        <p:message id="sifreMsg" for="inputSifre"/>
+                        
+                        <p:commandButton value="Giriş" action="#{tahsilatKisiBean.girisKontrol}" update="frmGiris"/>
+                        
+                        
+                        
+                        
+                    </p:panelGrid>
+                    
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
