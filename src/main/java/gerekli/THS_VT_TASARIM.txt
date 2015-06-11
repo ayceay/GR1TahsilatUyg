@@ -36,3 +36,6 @@ create table THS_KURUM
     ID    NUMBER        PRIMARY KEY,
     AD    VARCHAR2(100)
 );
+
+alter table THS_KISI
+add (tema varchar2(50));

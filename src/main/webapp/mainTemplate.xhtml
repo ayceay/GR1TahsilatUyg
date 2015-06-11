@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -17,7 +18,7 @@
         
         <p:layout fullPage="true">
 
-            <p:layoutUnit position="north" size="100" header="Top" resizable="true" closable="true" collapsible="true">
+            <p:layoutUnit position="north" size="100" resizable="true" closable="true" collapsible="true">
                 <ui:insert name="top">
                     <table border="0">
                         <tr>
@@ -31,16 +32,23 @@
                 </ui:insert>
             </p:layoutUnit>
 
-            <p:layoutUnit position="south" size="100" header="Bottom" resizable="true" closable="true" collapsible="true">
+            <p:layoutUnit position="south" size="100"  resizable="true" closable="true" collapsible="true">
                 <ui:insert name="bottom"><h:outputText value="South unit content." /></ui:insert>
             </p:layoutUnit>
 
-            <p:layoutUnit position="west" size="200" header="Left" resizable="true" closable="true" collapsible="true">
+            <p:layoutUnit position="west" size="200" resizable="true" closable="true" collapsible="true">
                 <ui:insert name="left">
                     <h:form>
                     <p:menu model="#{tahsilatMenuBean.simpleMenuModel}" style="width: 95%">
                         
                     </p:menu>
+                        <br/>
+                        <p:themeSwitcher style="width: 165px" value="#{tahsilatKisiBean.kisi.tema}">
+                            <f:selectItem itemLabel="Tema Seçiniz" itemValue=""/>
+                            <f:selectItems value="#{tahsilatKisiBean.temaList}"/>
+                            <p:ajax listener="#{tahsilatKisiBean.temaKaydet}"/>
+                        </p:themeSwitcher>       
+                        
                     </h:form>
                 </ui:insert>
             </p:layoutUnit>

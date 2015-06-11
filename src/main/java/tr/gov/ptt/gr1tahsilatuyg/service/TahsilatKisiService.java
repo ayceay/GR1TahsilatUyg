@@ -30,5 +30,10 @@ public class TahsilatKisiService {
         
     }
     
+    public void kisiGuncelle(TahsilatKisi p_kisi)
+    {
+        tahsilatKisiFacade.edit(p_kisi);
+    }
+    
     
 }

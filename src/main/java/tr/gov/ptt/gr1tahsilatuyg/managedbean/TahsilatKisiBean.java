@@ -37,13 +37,17 @@ public class TahsilatKisiBean {
     
     private TahsilatKisi kisi;
    
+    private List<String> temaList;
     
     @EJB
     private TahsilatKisiService tahsilatKisiService;
     
        public TahsilatKisiBean() {
            kisi = new TahsilatKisi();
-          
+           temaList = new ArrayList<String>();
+           if(kisi.getTema()== null)
+            kisi.setTema("bluesky");
+           temaListesiDoldur();
         }
 
     public TahsilatKisi getKisi() {
@@ -98,6 +102,29 @@ public class TahsilatKisiBean {
         return "giris.xhtml?faces-redirect=true";
     }
     
+    public void temaListesiDoldur()
+    {
+        temaList.add("afterdark");
+        temaList.add("afternoon");
+        temaList.add("afterwork");
+        temaList.add("cruze");
+        temaList.add("bluesky");
+        temaList.add("blitzer");
+        temaList.add("sunny");
+        temaList.add("trontastic");
+        temaList.add("delta");
+        
+    }
+    
+    public List<String> getTemaList()
+    {
+        return temaList;
+    }
+    
+    public void temaKaydet()
+    {
+        tahsilatKisiService.kisiGuncelle(kisi);
+    }
     
     
 }
