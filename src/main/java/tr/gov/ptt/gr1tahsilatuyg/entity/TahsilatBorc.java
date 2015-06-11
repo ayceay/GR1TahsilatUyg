@@ -75,12 +75,11 @@ public class TahsilatBorc implements Serializable {
     private TahsilatKurum kurum;
 
     public TahsilatBorc() {
+        
+        kurum = new TahsilatKurum();
     }
 
-    public TahsilatBorc(BigDecimal id) {
-        this.id = id;
-    }
-
+   
     public BigDecimal getId() {
         return id;
     }

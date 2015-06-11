@@ -48,6 +48,8 @@ public class TahsilatKurum implements Serializable {
     @OneToMany(mappedBy = "kurum")
     private List<TahsilatBorc> tahsilatBorcList;
 
+    
+    
     public TahsilatKurum() {
     }
 
@@ -104,4 +106,5 @@ public class TahsilatKurum implements Serializable {
         return "tr.gov.ptt.gr1tahsilatuyg.entity.TahsilatKurum[ id=" + id + " ]";
     }
     
+   
 }

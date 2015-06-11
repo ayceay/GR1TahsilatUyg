@@ -20,11 +20,32 @@
                                 <p:outputLabel value="Kurum Adı : "/>
                             </p:column>
                             <p:column>
-                                <p:autoComplete id="kurumAdi" value="" completeMethod="" required="true"/>
+                                <p:autoComplete id="kurumAdi" value="#{tahsilatBorcBean.tahsilatBorc.kurum.ad}"
+                                                completeMethod="#{tahsilatBorcBean.kurumAdlariGetir}" required="true"/>
                             </p:column>
                             <p:column>
                                 <p:message id="msgKurumAdi" for="kurumAdi"/>
                             </p:column>
+                            
+                            
+                            <p:column>
+                                <p:outputLabel value="Abone No : "/>
+                            </p:column>
+                            
+                            <p:column>
+                                <p:inputText value="#{tahsilatBorcBean.tahsilatBorc.aboneNo}" 
+                                             id="aboneNo" label="Abone No" required="true"/>
+                            </p:column>
+                             <p:column>
+                                <p:message id="msgAboneNo" for="aboneNo"/>
+                            </p:column>
+                            
+                            <p:outputLabel value=""/>
+                            <p:commandButton id="btnSorgula" value="Sorgula" 
+                                             action="#{tahsilatBorcBean.faturaSorgula()}"
+                                             update="frmTahGiris"/>
+                            <p:outputLabel value=""/>
+                            
                             
                         </p:panelGrid>
                         
