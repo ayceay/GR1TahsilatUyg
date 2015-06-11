@@ -78,6 +78,7 @@ public class TahsilatKisiBean {
             
             HttpSession session = JSFUtil.getSession();
             session.setAttribute("username", sonucKisi.getKullaniciAd());
+            this.kisi = sonucKisi;
             return "menu.xhtml?faces-redirect=true";
         }
         else
@@ -87,6 +88,14 @@ public class TahsilatKisiBean {
         }
         
         
+    }
+    
+    public String guvenliCikis()
+    {
+        HttpSession session = JSFUtil.getSession();
+        session.invalidate();
+        System.out.println("Sessionnn Bitiyoreeeeeeeeeeeeeeeeee.....");
+        return "giris.xhtml?faces-redirect=true";
     }
     
     

@@ -37,9 +37,7 @@ public class TahsilatMenuBean {
     @PostConstruct
     public void init()
     {
-        
-        
-        
+     
         List<TahsilatMenu> menuListesi = kisibean.getKisi().getTahsilatMenuList();
         
         if(menuListesi != null)
@@ -53,8 +51,7 @@ public class TahsilatMenuBean {
             
             menuItem = new DefaultMenuItem();
              menuItem.setValue(menuListesi1.getBaslik());
-            menuItem.setUrl(menuListesi1.getLink()+".xhtml?faces-redirect=true");
-            //simpleMenuModel.addElement(menuItem);
+            menuItem.setCommand(menuListesi1.getLink());           
             subMenu.addElement(menuItem);
         }
         
@@ -100,7 +97,8 @@ public class TahsilatMenuBean {
             //simpleMenuModel.addElement(menuItem);
             subMenu.addElement(menuItem);
             simpleMenuModel.addElement(subMenu);
-        }
+        }  
+        
     }
     public TahsilatMenuBean() {
     }
@@ -108,5 +106,7 @@ public class TahsilatMenuBean {
     public MenuModel getSimpleMenuModel() {
         return simpleMenuModel;
     }
+    
+    
     
 }
