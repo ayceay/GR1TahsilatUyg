@@ -1,0 +1,70 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./mainTemplate.xhtml">
+
+            <ui:define name="content">
+                <h:form id="frmListele">
+                    
+                    <p:dataTable id="faturaTablo" var="borc" 
+                                 value="#{tahsilatBorcBean.borcListesi}" widgetVar="borcW"
+                                 draggableColumns="true" emptyMessage="Borç bulunamadı!" 
+                                 
+                                 selection="#{tahsilatBorcBean.filteredBorcListesi}" rowKey="#{borc.id}"
+                                 >
+                        <p:ajax event="rowSelectCheckbox" listener="#{tahsilatBorcBean.hesapla()}" update="frmListele"/>
+                        <p:ajax event="rowUnselectCheckbox" listener="#{tahsilatBorcBean.hesapla()}" update="frmListele"/>
+                        <f:facet name="header">
+                            FATURALAR
+                        </f:facet>
+                        <p:column selectionMode="multiple" style="width:16px;text-align:center"/>
+                         <p:column headerText="Borç Id">
+                             <p:outputLabel value="#{borc.id}"/>
+                        </p:column>
+                        <p:column headerText="Abone No">
+                            <p:outputLabel value="#{borc.aboneNo}"/>
+                        </p:column>
+                        <p:column headerText="Abone Ad" >
+                            <p:outputLabel value="#{borc.aboneAd}"/>
+                        </p:column>
+                        <p:column headerText="Abone Soyad">
+                            <p:outputLabel value="#{borc.aboneSoyad}"/>
+                        </p:column>
+                        <p:column headerText="Fatura No" sortBy="#{borc.faturaNo}" >
+                            
+                                <p:outputLabel value="#{borc.faturaNo}"/>
+                            
+                        </p:column> 
+                        
+                        <p:column headerText="Fatura Tutar">
+                           
+                            <p:outputLabel value="#{borc.faturaTutar}">
+                                <f:convertNumber currencySymbol="TL" type="currency"/>
+                            </p:outputLabel>
+                        </p:column>
+                        
+                    </p:dataTable>
+                    <p:panelGrid columns="2">
+                        <p:outputLabel value="Toplam Para"/>
+                        <p:inputText id="toplam" label="Toplam" value="#{tahsilatBorcBean.toplam}"/>
+                         <p:outputLabel value="Alınan Para"/>
+                         <p:inputText id="alinan" label="Alınan" value="#{tahsilatBorcBean.alinan}">
+                             <p:ajax event="keyup" update="paraustu" listener="#{tahsilatBorcBean.hesapla()}"/>
+                         </p:inputText>
+                         <p:outputLabel value="Para Üstü"/>
+                         <p:inputText id="paraustu" label="Para Üstü" value="#{tahsilatBorcBean.paraustu}"/>
+                    </p:panelGrid>
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

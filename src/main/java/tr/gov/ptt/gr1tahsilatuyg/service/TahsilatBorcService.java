@@ -9,7 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import tr.gov.ptt.gr1tahsilatuyg.entity.TahsilatBorc;
 import tr.gov.ptt.gr1tahsilatuyg.entity.TahsilatKurum;
+import tr.gov.ptt.gr1tahsilatuyg.facade.TahsilatBorcFacade;
 import tr.gov.ptt.gr1tahsilatuyg.facade.TahsilatKurumFacade;
 
 /**
@@ -21,6 +23,9 @@ import tr.gov.ptt.gr1tahsilatuyg.facade.TahsilatKurumFacade;
 public class TahsilatBorcService {
     @EJB
     private TahsilatKurumFacade tahsilatKurumFacade;
+    @EJB
+    private TahsilatBorcFacade  tahsilatBorcFacade;
+    
     public List<String> kurumAdlariGetir(String query)
     {
         List<TahsilatKurum> kurumListesi = tahsilatKurumFacade.findAll();
@@ -33,6 +38,18 @@ public class TahsilatBorcService {
             }
         }
         return kurumListesiStartWithQuery;
+    }
+    
+    public List<TahsilatBorc> findAllBorcViaKurumIdAndAboneNo(String p_kurumad,String p_aboneNo)
+    {
+        Integer kurumId = tahsilatKurumFacade.findKurumId(p_kurumad);
+        List<TahsilatBorc> borcList = null;
+        if(kurumId != null)
+        {
+            borcList = tahsilatBorcFacade.findAllBorcViaKurumIdAndAboneNo(kurumId, p_aboneNo);
+        }
+        
+        return borcList;
     }
     
 }

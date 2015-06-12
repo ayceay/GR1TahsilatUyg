@@ -28,4 +28,14 @@ public class TahsilatKurumFacade extends AbstractFacade<TahsilatKurum> {
         super(TahsilatKurum.class);
     }
     
+    public Integer findKurumId(String p_kurumAd)
+    {
+       TahsilatKurum kurum = (TahsilatKurum)em.createNamedQuery("TahsilatKurum.findByAd").
+               setParameter("ad", p_kurumAd).getSingleResult();
+       
+       return kurum.getId().intValue();
+    }
+    
+    
+    
 }

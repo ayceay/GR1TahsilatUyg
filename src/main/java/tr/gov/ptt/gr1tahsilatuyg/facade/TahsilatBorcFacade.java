@@ -5,6 +5,7 @@
  */
 package tr.gov.ptt.gr1tahsilatuyg.facade;
 
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -28,4 +29,11 @@ public class TahsilatBorcFacade extends AbstractFacade<TahsilatBorc> {
         super(TahsilatBorc.class);
     }
     
+    
+    public List<TahsilatBorc> findAllBorcViaKurumIdAndAboneNo(Integer p_kurumId,String p_aboneNo)
+    {
+         List<TahsilatBorc> borcList = (List<TahsilatBorc>)em.createNamedQuery("TahsilatBorc.findBorcViaKurumIdAndAboneNo").
+                setParameter("aboneNo", p_aboneNo).setParameter("kurumId", p_kurumId).getResultList();
+         return borcList;
+    }
 }
