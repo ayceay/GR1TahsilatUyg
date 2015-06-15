@@ -10,9 +10,11 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import tr.gov.ptt.gr1tahsilatuyg.entity.TahsilatBorc;
 import tr.gov.ptt.gr1tahsilatuyg.service.TahsilatBorcService;
+import tr.gov.ptt.gr1tahsilatuyg.util.JSFUtil;
 
 /**
  *
@@ -32,6 +34,9 @@ public class TahsilatBorcBean {
     private BigDecimal toplam;
     private BigDecimal alinan;
     private BigDecimal paraustu;
+    
+    @ManagedProperty(value="#{tahsilatKisiBean}")
+    private TahsilatKisiBean kisibean;
      
      public TahsilatBorcBean() {
          
@@ -64,8 +69,15 @@ public class TahsilatBorcBean {
     {
         borcListesi = tahsilatBorcService.findAllBorcViaKurumIdAndAboneNo(tahsilatBorc.getKurum().getAd(),
                 tahsilatBorc.getAboneNo());
-        
-        return "tahsilatListele.xhtml?faces-redirect=true";
+        if(borcListesi.size() > 0)
+        {
+            return "tahsilatListele.xhtml?faces-redirect=true";
+        }
+        else
+        {
+            JSFUtil.hataMesajiEkle("UYARI!", "Borç Bulunamadı!");
+            return "";
+        }
     }
     
      public List<String> kurumAdlariGetir(String query)
@@ -117,7 +129,43 @@ public class TahsilatBorcBean {
     
     public void paraUstuHesapla()
     {
-        paraustu = toplam.subtract(alinan);
+        paraustu = alinan.subtract(toplam);
     }
+    
+    public String yildizliYaz(String p_ad)
+    {
+        String yildizliSonuc = p_ad.substring(0,2 );
+        
+        for (int i = 2 ; i < p_ad.length(); i++) {
+            yildizliSonuc += "*";
+        }
+        
+        return yildizliSonuc;
+    }
+    
+    public String borcOde()
+    {
+        if(tahsilatBorcService.seciliFaturalariOde(filteredBorcListesi, kisibean.getKisi()))
+        {
+            return "tahsilatSonuc.xhtml?faces-redirect=true";
+        }
+        else
+        {
+            JSFUtil.hataMesajiEkle("UYARI", "Seçilen Faturalar Ödenemedi!");
+            return "";
+        }
+    }
+
+    public TahsilatKisiBean getKisibean() {
+        return kisibean;
+    }
+
+    public void setKisibean(TahsilatKisiBean kisibean) {
+        this.kisibean = kisibean;
+    }
+    
+    
+    
+    
     
 }

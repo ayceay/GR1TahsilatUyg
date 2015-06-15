@@ -7,6 +7,7 @@ package tr.gov.ptt.gr1tahsilatuyg.entity;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -19,6 +20,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -40,6 +42,10 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "TahsilatKisi.findBySifre", query = "SELECT t FROM TahsilatKisi t WHERE t.sifre = :sifre"),
     @NamedQuery(name = "TahsilatKisi.findByRol", query = "SELECT t FROM TahsilatKisi t WHERE t.rol = :rol")})
 public class TahsilatKisi implements Serializable {
+    @Column(name = "SIRANO")
+    private Integer sirano;
+    @OneToMany(mappedBy = "kisi")
+    private List<Tahsilat> tahsilatList;
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
@@ -64,6 +70,7 @@ public class TahsilatKisi implements Serializable {
     @Size(max = 1)
     @Column(name = "ROL")
     private String rol;
+   
     
      @Size(max = 50)
     @Column(name = "TEMA")
@@ -172,5 +179,25 @@ public class TahsilatKisi implements Serializable {
     public String toString() {
         return "tr.gov.ptt.gr1tahsilatuyg.entity.TahsilatKisi[ id=" + id + " ]";
     }
+
+    public Integer getSirano() {
+        return sirano;
+    }
+
+    public void setSirano(Integer sirano) {
+        this.sirano = sirano;
+    }
+
+    public List<Tahsilat> getTahsilatList() {
+        return tahsilatList;
+    }
+
+    public void setTahsilatList(List<Tahsilat> tahsilatList) {
+        this.tahsilatList = tahsilatList;
+    }
+
+  
+    
+    
     
 }

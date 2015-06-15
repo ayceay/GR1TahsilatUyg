@@ -7,16 +7,16 @@ package tr.gov.ptt.gr1tahsilatuyg.entity;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -27,35 +27,35 @@ import javax.validation.constraints.Size;
  * @author Administrator
  */
 @Entity
-@Table(name = "THS_KURUM")
+@Table(name = "THS_TAHSILAT_MUHASEBE")
 @NamedQueries({
-    @NamedQuery(name = "TahsilatKurum.findAll", query = "SELECT t FROM TahsilatKurum t"),
-    @NamedQuery(name = "TahsilatKurum.findById", query = "SELECT t FROM TahsilatKurum t WHERE t.id = :id"),
-    @NamedQuery(name = "TahsilatKurum.findByAd", query = "SELECT t FROM TahsilatKurum t WHERE t.ad = :ad")})
-public class TahsilatKurum implements Serializable {
-    @OneToMany(mappedBy = "kurum")
-    private List<Tahsilat> tahsilatList;
+    @NamedQuery(name = "TahsilatMuhasebe.findAll", query = "SELECT t FROM TahsilatMuhasebe t"),
+    @NamedQuery(name = "TahsilatMuhasebe.findById", query = "SELECT t FROM TahsilatMuhasebe t WHERE t.id = :id"),
+    @NamedQuery(name = "TahsilatMuhasebe.findByHesapNo", query = "SELECT t FROM TahsilatMuhasebe t WHERE t.hesapNo = :hesapNo"),
+    @NamedQuery(name = "TahsilatMuhasebe.findByTutar", query = "SELECT t FROM TahsilatMuhasebe t WHERE t.tutar = :tutar")})
+public class TahsilatMuhasebe implements Serializable {
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
     @Basic(optional = false)
     @NotNull
     @Column(name = "ID")
-     @SequenceGenerator(name = "kurumseq",sequenceName = "SEQ_THS_KURUM",initialValue = 1,allocationSize = 1)
-    @GeneratedValue(generator = "kurumseq", strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "seqMuhasebe",sequenceName = "SEQ_THS_TAHSILAT_MUHASEBE" ,allocationSize = 1)
+    @GeneratedValue(generator = "seqMuhasebe" , strategy = GenerationType.SEQUENCE)
     private BigDecimal id;
-    @Size(max = 250)
-    @Column(name = "AD")
-    private String ad;
-    @OneToMany(mappedBy = "kurum")
-    private List<TahsilatBorc> tahsilatBorcList;
+    @Size(max = 100)
+    @Column(name = "HESAP_NO")
+    private String hesapNo;
+    @Column(name = "TUTAR")
+    private BigDecimal tutar;
+    @JoinColumn(name = "TAHSILAT_ID", referencedColumnName = "ID")
+    @ManyToOne
+    private Tahsilat tahsilat;
 
-    
-    
-    public TahsilatKurum() {
+    public TahsilatMuhasebe() {
     }
 
-    public TahsilatKurum(BigDecimal id) {
+    public TahsilatMuhasebe(BigDecimal id) {
         this.id = id;
     }
 
@@ -67,20 +67,28 @@ public class TahsilatKurum implements Serializable {
         this.id = id;
     }
 
-    public String getAd() {
-        return ad;
+    public String getHesapNo() {
+        return hesapNo;
     }
 
-    public void setAd(String ad) {
-        this.ad = ad;
+    public void setHesapNo(String hesapNo) {
+        this.hesapNo = hesapNo;
     }
 
-    public List<TahsilatBorc> getTahsilatBorcList() {
-        return tahsilatBorcList;
+    public BigDecimal getTutar() {
+        return tutar;
     }
 
-    public void setTahsilatBorcList(List<TahsilatBorc> tahsilatBorcList) {
-        this.tahsilatBorcList = tahsilatBorcList;
+    public void setTutar(BigDecimal tutar) {
+        this.tutar = tutar;
+    }
+
+    public Tahsilat getTahsilat() {
+        return tahsilat;
+    }
+
+    public void setTahsilat(Tahsilat tahsilat) {
+        this.tahsilat = tahsilat;
     }
 
     @Override
@@ -93,10 +101,10 @@ public class TahsilatKurum implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof TahsilatKurum)) {
+        if (!(object instanceof TahsilatMuhasebe)) {
             return false;
         }
-        TahsilatKurum other = (TahsilatKurum) object;
+        TahsilatMuhasebe other = (TahsilatMuhasebe) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -105,16 +113,7 @@ public class TahsilatKurum implements Serializable {
 
     @Override
     public String toString() {
-        return "tr.gov.ptt.gr1tahsilatuyg.entity.TahsilatKurum[ id=" + id + " ]";
-    }
-
-    public List<Tahsilat> getTahsilatList() {
-        return tahsilatList;
-    }
-
-    public void setTahsilatList(List<Tahsilat> tahsilatList) {
-        this.tahsilatList = tahsilatList;
+        return "tr.gov.ptt.gr1tahsilatuyg.entity.TahsilatMuhasebe[ id=" + id + " ]";
     }
     
-   
 }
