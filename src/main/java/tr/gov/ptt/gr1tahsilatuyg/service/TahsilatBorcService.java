@@ -161,4 +161,9 @@ public class TahsilatBorcService {
         
     }
     
+    public List<Object[]> chartVerisiGetir()
+    {
+        return tahsilatBorcFacade.chartVerisiGetir();
+    }
+    
 }
