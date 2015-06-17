@@ -25,6 +25,8 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -32,6 +34,7 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @Table(name = "THS_KISI")
+@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "TahsilatKisi.findAll", query = "SELECT t FROM TahsilatKisi t"),
     @NamedQuery(name = "TahsilatKisi.findById", query = "SELECT t FROM TahsilatKisi t WHERE t.id = :id"),
@@ -146,7 +149,7 @@ public class TahsilatKisi implements Serializable {
     public void setRol(String rol) {
         this.rol = rol;
     }
-
+    @XmlTransient
     public List<TahsilatMenu> getTahsilatMenuList() {
         return tahsilatMenuList;
     }
@@ -187,7 +190,7 @@ public class TahsilatKisi implements Serializable {
     public void setSirano(Integer sirano) {
         this.sirano = sirano;
     }
-
+    @XmlTransient
     public List<Tahsilat> getTahsilatList() {
         return tahsilatList;
     }
